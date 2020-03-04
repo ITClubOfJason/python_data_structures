@@ -1,3 +1,16 @@
+ITClubOfBruce
+/
+DataStructures
+0
+0 1
+ Code  Issues 0  Pull requests 0  Actions  Projects 0  Wiki  Security  Insights
+DataStructures/stackPractise01.py  / 
+@ITClubOfBruce ITClubOfBruce ({[符号匹配
+defa70b 2 hours ago
+124 lines (82 sloc)  2.48 KB
+    
+You're using code navigation to jump to definitions or references.
+Learn more or give us feedback
 # 栈抽象数据类型的底层实现采用什么？   list
 # 确定列表的哪一端是顶部，然后使用append和pop来实现操作
 
@@ -48,10 +61,47 @@
 
 
 
-# （）匹配
+# # （）匹配
+# from pythonds.basic.stack import Stack
+
+# #  symbolString  假设 “（（））”
+# def parChecker(symbolString):
+#     s = Stack()
+#     flag = True
+#     index = 0
+
+#     while index < len(symbolString) and flag:
+#         symbol = symbolString[index]
+#         if symbol == "(":
+#             s.push(symbol)
+#         else:
+#             if s.isEmpty():
+#                 flag = False
+#             else:
+#                 s.pop()
+
+#         index = index + 1
+
+#     if flag and s.isEmpty():
+#         return True
+#     else:
+#         return False
+
+
+# print(parChecker('(())'))   # 栈：  
+# print(parChecker('((())')) # 栈：（
+
+
+
+
+
+#  {[()]}   ( [ )]
+# 每一个开始的符号被压入栈，等待匹配结果
+# 当出现结束符号的时候，必须检查栈顶部的开始符号是什么类型，如果两个符号不匹配，则字符串不匹配
+# 整个字符串处理完并且栈为空，则字符串匹配
+
 from pythonds.basic.stack import Stack
 
-#  symbolString  假设 “（（））”
 def parChecker(symbolString):
     s = Stack()
     flag = True
@@ -59,21 +109,27 @@ def parChecker(symbolString):
 
     while index < len(symbolString) and flag:
         symbol = symbolString[index]
-        if symbol == "(":
+
+        if symbol in "([{":     # [{
             s.push(symbol)
         else:
             if s.isEmpty():
                 flag = False
             else:
-                s.pop()
+                top = s.pop()   # {
+                start = '([{'  # 2
+                end = ')]}'   # 1
 
-        index = index + 1
+                if not start.index(top) == end.index(symbol):
+                    flag = False
+        index = index + 1 
+
 
     if flag and s.isEmpty():
         return True
     else:
         return False
 
-
-print(parChecker('(())'))
-print(parChecker('((())'))
+print(parChecker('{[()]}'))
+print(parChecker('{{([][])}()}'))
+print(parChecker('[{()]'))
