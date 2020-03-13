@@ -84,3 +84,37 @@
 #     for w in v.getConnections():
 #         print("( %s,%s )"%(v.getId(),w.getId()))
 
+
+
+'''
+    字梯问题：将单词FOOL转换成SAGE
+    描述：每次必须转换一个字母
+    比如:
+    FOOL    
+    POOL
+    POLL
+    POLE
+    PALE
+    SALE
+    SAGE
+    我们的目的：计算最小转换次数
+    步骤：1. 将字之间的关系表示为图  无向图
+         2. 使用广度优先搜索的图算法来找到有效路径
+    如果两个词只有一个字母不同，我们就创建他两个之间的一条边
+    
+    两两比较  ×
+    归类：
+'''
+
+from pythonds.graphs import Graph
+
+# wordFile 单词的文件
+def buildGraph(wordFile):
+    d = {}
+
+    wfile = open(wordFile,'r')
+    i = 0
+    for line in wfile:
+        if i%2 == 0:
+            word = line[:-1]
+            i = i+1
